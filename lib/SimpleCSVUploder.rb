@@ -1,6 +1,8 @@
 require "SimpleCSVUploder/version"
 
 module SimpleCSVUploder
+  attr_accessor :file
+
   def initialize(params = {})
     @file = params.delete(:file)
     super
@@ -31,8 +33,10 @@ module SimpleCSVUploder
 
   NUM_BYTES_IN_MEGABYTE = 1048576
   def file_size_under_one_mb
-    if (@file.size.to_f / NUM_BYTES_IN_MEGABYTE) > 1
-      errors.add(:file, 'File size cannot be over one megabyte.')
+    if !@file.nil?
+      if (@file.size.to_f / NUM_BYTES_IN_MEGABYTE) > 1
+        errors.add(:file, 'File size cannot be over one megabyte.')
+      end
     end
   end
 end
