@@ -25,6 +25,12 @@ module SimpleCSVUploder
     return File.basename(filename)
   end
 
+  def check_duplication_filename
+    if Document.where(filename: self.filename).present?
+      errors.add(:file, 'File already exists.')
+    end
+  end
+
   def csv_file_format
     if self.content_type != "text/csv"
      errors.add(:file, 'File format should be only CSV.')
