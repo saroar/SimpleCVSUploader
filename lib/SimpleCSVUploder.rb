@@ -26,7 +26,7 @@ module SimpleCSVUploder
   end
 
   def check_duplication_filename
-    if Document.where(filename: self.filename).present?
+    if Simpledocupload::Document.where(filename: self.filename).present?
       errors.add(:file, 'File already exists.')
     end
   end
